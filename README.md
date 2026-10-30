@@ -182,10 +182,6 @@ erDiagram
     SELLERS ||--o{ ORDER_ITEMS : vende
 ```
 
-[Opcional: criar uma view analítica `vw_pedidos_entregues` (1 linha por pedido, com prazo, atraso, nota e UF) e documentar aqui.]
-
-![Modelo de Dados](images/data_model.png)
-
 ---
 
 ## Step 1: Coleta e Ingestão
@@ -213,9 +209,9 @@ Manter os dados no banco permite escrever as análises das etapas seguintes em S
 
 <!-- Cole abaixo a tabela gerada na última célula do notebook (seção 7) -->
 
-| Tabela | Linhas | Colunas | Esperado (Kaggle) | Confere? |
-|--------|-------:|--------:|------------------:|:--------:|
-| `orders` | [preencher] | [preencher] | 99.441 | [✅/⚠️] |
+| Tabela | Linhas | Colunas | Confere? |
+|--------|-------:|--------:|---------:|
+| `orders` | 99,441 linhas | 8 colunas | [✅/⚠️] |
 | `order_items` | [preencher] | [preencher] | 112.650 | [✅/⚠️] |
 | `order_payments` | [preencher] | [preencher] | 103.886 | [✅/⚠️] |
 | `order_reviews` | [preencher] | [preencher] | 99.224 | [✅/⚠️] |
