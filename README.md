@@ -22,13 +22,18 @@ Neste projeto, realizei uma análise de dados completa, que consiste nas seguint
 5. Construção de dashboard / visualizações para comunicar os resultados.
 6. Consolidação de insights e recomendações acionáveis.
 
-> **Foco do projeto:** ênfase em SQL (joins entre várias tabelas), análise e storytelling com dados.
+
+
+
 
 ## 💼 Contexto de Negócio
 
 - **Problema:** Em marketplaces, a experiência de entrega pesa muito na avaliação do cliente. A diretoria suspeita que atrasos em relação ao prazo prometido estão reduzindo as notas e prejudicando a reputação da plataforma, mas não sabe o tamanho do problema nem onde ele está concentrado.
 - **Público-alvo:** Diretoria de operações e logística, time de gestão de vendedores (sellers) e time de experiência do cliente.
 - **Impacto esperado:** Priorizar ações (renegociar prazos, acompanhar vendedores críticos, ajustar a promessa de entrega por região) nos pontos onde o atraso mais prejudica a satisfação.
+
+
+
 
 ## ❓ Perguntas de Negócio
 
@@ -40,8 +45,6 @@ Neste projeto, realizei uma análise de dados completa, que consiste nas seguint
 | 4 | Quais categorias de produto têm pior experiência de entrega? | % de atraso e nota média por categoria |
 | 5 | Existem vendedores que concentram atrasos de forma recorrente? | % de atraso por vendedor (com volume mínimo) |
 | 6 | O atraso afeta a receita? (frete, ticket médio e recompra) | Ticket médio, valor do frete, taxa de recompra |
-
-<!-- Esta seção é o coração de um projeto de análise: ela guia tudo o que vem depois. -->
 
 ---
 
@@ -129,6 +132,8 @@ O **Brazilian E-Commerce Public Dataset by Olist** reúne pedidos reais e anonim
 - **Dashboard:** Power BI
 - **Versionamento:** Git e GitHub
 
+
+
 ## 🔄 Project Workflow
 
 ```mermaid
@@ -147,6 +152,8 @@ Arquivos por etapa:
 - **Step 4 — Análise:** [`notebooks/04_analise.ipynb`](notebooks/04_analise.ipynb) e [`sql/analises.sql`](sql/analises.sql)
 - **Step 5 — Dashboard:** [`dashboard/`](dashboard/)
 
+
+
 ## 📁 Estrutura do Repositório
 
 ```
@@ -161,6 +168,8 @@ Arquivos por etapa:
 ├── requirements.txt    # dependências
 └── README.md
 ```
+
+
 
 ## 🧩 Data Modeling
 
@@ -178,18 +187,22 @@ erDiagram
 
 ---
 
+
 ## Step 1: Coleta
 
 Download manual dos 9 CSVs no Kaggle e carga no PostgreSQL (via pandas + SQLAlchemy).
 
-1. Conectar o Banco de dados ao Notebook
-![conectando bd](images/conectando_db.jpg)
+1. Conectando o Banco de dados ao Notebook
+![conectando_db](images/conectando_db.jpg)
 
-2. Organizar e Mapear os Arquivos CSV
-![organizar_mapear_bd](images/organizar_mapear_db.jpg)
+2. Organizando e Mapeando os Arquivos CSV
+![organizar_mapear_db](images/organizar_mapear_db.jpg)
 
-3. Importar ao Banco de Dados
+3. Importando ao Banco de Dados
 ![importar_db](images/importar_db.jpg)
+
+
+
 
 
 ## Step 2: Limpeza e Qualidade dos Dados
