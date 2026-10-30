@@ -22,11 +22,9 @@ Neste projeto, realizei uma análise de dados completa, que consiste nas seguint
 5. Construção de dashboard / visualizações para comunicar os resultados.
 6. Consolidação de insights e recomendações acionáveis.
 
-> **Foco do projeto:** ênfase em SQL (joins entre várias tabelas), análise e storytelling com dados, com menor foco em engenharia de dados.
+> **Foco do projeto:** ênfase em SQL (joins entre várias tabelas), análise e storytelling com dados.
 
 ## 💼 Contexto de Negócio
-
-> ℹ️ *Cenário fictício criado para fins de portfólio. Os dados são reais e públicos; o papel de "analista da empresa" é simulado.*
 
 - **Problema:** Em marketplaces, a experiência de entrega pesa muito na avaliação do cliente. A diretoria suspeita que atrasos em relação ao prazo prometido estão reduzindo as notas e prejudicando a reputação da plataforma, mas não sabe o tamanho do problema nem onde ele está concentrado.
 - **Público-alvo:** Diretoria de operações e logística, time de gestão de vendedores (sellers) e time de experiência do cliente.
@@ -127,22 +125,21 @@ O **Brazilian E-Commerce Public Dataset by Olist** reúne pedidos reais e anonim
 - **Linguagens:** Python, SQL
 - **Bibliotecas:** pandas, NumPy, Matplotlib, Seaborn, Plotly, SQLAlchemy
 - **Ambiente:** Jupyter Notebook / VS Code
-- **Armazenamento / Banco:** PostgreSQL
-- **Visualização / BI:** [Power BI ou Looker Studio — definir]
+- **Banco de Dados:** PostgreSQL
+- **Dashboard:** Power BI
 - **Versionamento:** Git e GitHub
 
 ## 🔄 Project Workflow
 
 ```mermaid
 flowchart LR
-    A[Kaggle - 9 CSVs Olist] --> B[Ingestão no PostgreSQL]
+    A[Kaggle - 9 CSVs Olist] --> B[Coleta no PostgreSQL]
     B --> C[Limpeza & Qualidade]
     C --> D[EDA]
     D --> E[Análise SQL + Python]
     E --> F[Dashboard]
     F --> G[Insights & Recomendações]
 ```
-
 Arquivos por etapa:
 - **Step 1 — Coleta:** [`notebooks/01_coleta.ipynb`](notebooks/01_coleta.ipynb)
 - **Step 2 — Limpeza:** [`notebooks/02_limpeza.ipynb`](notebooks/02_limpeza.ipynb)
@@ -179,18 +176,19 @@ erDiagram
     SELLERS ||--o{ ORDER_ITEMS : vende
 ```
 
-[Opcional: criar uma view analítica `vw_pedidos_entregues` (1 linha por pedido, com prazo, atraso, nota e UF) e documentar aqui.]
-
-![Modelo de Dados](images/data_model.png)
-
 ---
 
 ## Step 1: Coleta
 
 Download manual dos 9 CSVs no Kaggle e carga no PostgreSQL (via pandas + SQLAlchemy).
 
+1. Conectar o Banco de dados ao Notebook
 ![conectando bd](images/conectando_db.jpg)
+
+2. Organizar e Mapear os Arquivos CSV
 ![organizar_mapear_bd](images/organizar_mapear_db.jpg)
+
+3. Importar ao Banco de Dados
 ![importar_db](images/importar_db.jpg)
 
 
