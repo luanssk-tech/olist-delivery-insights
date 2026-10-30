@@ -209,6 +209,18 @@ Manter os dados no banco permite escrever as análises das etapas seguintes em S
 
 <!-- Cole abaixo a tabela gerada na última célula do notebook (seção 7) -->
 
+                 tabela   linhas  colunas  esperado ok
+0                orders    99441        8     99441  ✅
+1           order_items   112650        7    112650  ✅
+2        order_payments   103886        5    103886  ✅
+3         order_reviews    99224        7     99224  ✅
+4             customers    99441        5     99441  ✅
+5               sellers     3095        4      3095  ✅
+6              products    32951        9     32951  ✅
+7           geolocation  1000163        5   1000163  ✅
+8  category_translation       71        2        71  ✅
+
+
 | Tabela | Linhas | Colunas | 
 |--------|-------:|--------:|
 | `orders` | 99,441 linhas | 8 colunas |
