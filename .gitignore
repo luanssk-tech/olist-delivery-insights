@@ -5,3 +5,11 @@ env/
 
 #Dados Brutos
 data/raw/*.csv
+
+# Segredos
+.env
+
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
