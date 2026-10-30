@@ -1,0 +1,22 @@
+# Manipulação de dados
+pandas>=2.0
+numpy>=1.24
+
+# Visualização
+matplotlib>=3.7
+seaborn>=0.13
+plotly>=5.15
+
+# Banco de dados (PostgreSQL)
+sqlalchemy>=2.0
+psycopg2-binary>=2.9
+
+# Estatística (testes de hipótese, correlações)
+scipy>=1.10
+
+# Ambiente de notebooks
+jupyterlab>=4.0
+ipykernel>=6.25
+
+# Utilitários
+python-dotenv>=1.0   # guardar usuário em arquivo .env
