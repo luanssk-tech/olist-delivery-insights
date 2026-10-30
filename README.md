@@ -209,17 +209,17 @@ Manter os dados no banco permite escrever as análises das etapas seguintes em S
 
 <!-- Cole abaixo a tabela gerada na última célula do notebook (seção 7) -->
 
-| Tabela | Linhas | Colunas | Confere? |
-|--------|-------:|--------:|---------:|
-| `orders` | 99,441 linhas | 8 colunas | [✅/⚠️] |
-| `order_items` | [preencher] | [preencher] | 112.650 | [✅/⚠️] |
-| `order_payments` | [preencher] | [preencher] | 103.886 | [✅/⚠️] |
-| `order_reviews` | [preencher] | [preencher] | 99.224 | [✅/⚠️] |
-| `customers` | [preencher] | [preencher] | 99.441 | [✅/⚠️] |
-| `sellers` | [preencher] | [preencher] | 3.095 | [✅/⚠️] |
-| `products` | [preencher] | [preencher] | 32.951 | [✅/⚠️] |
-| `geolocation` | [preencher] | [preencher] | 1.000.163 | [✅/⚠️] |
-| `product_category_name_translation` | [preencher] | [preencher] | 71 | [✅/⚠️] |
+| Tabela | Linhas | Colunas | 
+|--------|-------:|--------:|
+| `orders` | 99,441 linhas | 8 colunas |
+| `order_items` | 112,650 linhas | 7 colunas |
+| `order_payments` | 103,886 linhas | 5 colunas |
+| `order_reviews` | 99,224 linhas | 7 colunas |
+| `customers` | 99,441 linhas | 5 colunas |
+| `sellers` | 3,095 linhas | 4 colunas |
+| `products` | 32,951 linhas | 9 colunas |
+| `geolocation` | 1,000,163 linhas | 5 colunas |
+| `product_category_name_translation` | 71 linhas | 2 colunas |
 
 ### Observações da validação
 
