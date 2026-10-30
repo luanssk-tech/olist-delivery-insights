@@ -57,7 +57,7 @@ Neste projeto, realizei uma análise de dados completa, que consiste nas seguint
 - [Project Workflow](#-project-workflow)
 - [Estrutura do Repositório](#-estrutura-do-repositório)
 - [Data Modeling](#-data-modeling)
-- [Step 1: Coleta e Ingestão](#step-1-coleta-e-ingestão)
+- [Step 1: Coleta](#step-1-coleta)
 - [Step 2: Limpeza e Qualidade dos Dados](#step-2-limpeza-e-qualidade-dos-dados)
 - [Step 3: Análise Exploratória (EDA)](#step-3-análise-exploratória-eda)
 - [Step 4: Análise e Modelagem](#step-4-análise-e-modelagem)
@@ -130,7 +130,6 @@ O **Brazilian E-Commerce Public Dataset by Olist** reúne pedidos reais e anonim
 - **Armazenamento / Banco:** PostgreSQL
 - **Visualização / BI:** [Power BI ou Looker Studio — definir]
 - **Versionamento:** Git e GitHub
-- **Outros (opcional):** Excel para conferência de números
 
 ## 🔄 Project Workflow
 
@@ -186,19 +185,11 @@ erDiagram
 
 ---
 
-## Step 1: Coleta e Ingestão
+## Step 1: Coleta
 
-Download manual dos 9 CSVs no Kaggle e carga no PostgreSQL (via pandas + SQLAlchemy). [Descrever o método final usado.]
+Download manual dos 9 CSVs no Kaggle e carga no PostgreSQL (via pandas + SQLAlchemy).
 
-```python
-import pandas as pd
-
-orders = pd.read_csv("data/raw/olist_orders_dataset.csv")
-orders.head()
-```
-
-- Shape inicial da tabela `orders`: **99.441 linhas** (demais tabelas: [preencher após a carga])
-- Observações: [problemas percebidos na carga, encoding, separadores, colunas de data lidas como texto etc.]
+![Coleta de Dados](../images/Inserindo_BD.jpg)
 
 ## Step 2: Limpeza e Qualidade dos Dados
 
@@ -383,6 +374,4 @@ Analista de Dados | [Sua área de interesse]
 
 ---
 
-⭐ Se este projeto foi útil, deixe uma estrela no repositório!
 
-<sub>Dados: Olist, via Kaggle, licença CC BY-NC-SA 4.0.</sub>
