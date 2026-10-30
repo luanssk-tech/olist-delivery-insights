@@ -194,7 +194,7 @@ erDiagram
 
 Manter os dados no banco permite escrever as análises das etapas seguintes em SQL (joins entre as tabelas) e usar o Python para validação e visualização.
 
-![Tabelas no DBeaver](images/01_dbeaver_tabelas.png)
+![Tabelas no DBeaver](images/01_dbeaver_tabelas.jpg)
 
 ### O que o notebook faz
 
@@ -207,11 +207,7 @@ Manter os dados no banco permite escrever as análises das etapas seguintes em S
 4. **Valida a carga:** contagem de linhas vs. dataset original, unicidade das chaves primárias, integridade referencial entre tabelas, nulos e linhas duplicadas.
 5. **Salva** as tabelas preparadas em `data/processed/*.parquet`, para os próximos notebooks lerem sem depender do banco.
 
-> As decisões de limpeza (nulos, duplicatas, status, outliers) **não** foram tomadas aqui. Esta etapa só diagnostica; o tratamento está no Step 2.
-
 ### Resultado da carga
-
-<!-- Cole abaixo a tabela gerada na última célula do notebook (seção 7) -->
 
 | Tabela | Linhas | Colunas | Esperado (Kaggle) | Confere? |
 |--------|-------:|--------:|------------------:|:--------:|
@@ -227,13 +223,11 @@ Manter os dados no banco permite escrever as análises das etapas seguintes em S
 
 ### Observações da validação
 
-*(preencher com o que o notebook mostrou)*
-
-- **Chaves:** [ex.: `order_reviews` tem `review_id` repetido em mais de um pedido]
-- **Integridade referencial:** [ex.: categorias de produto sem tradução em `category_translation`]
-- **Nulos relevantes:** [ex.: pedidos sem `order_delivered_customer_date`, `product_category_name` nulo]
-- **Duplicatas:** [ex.: `geolocation` com muitas linhas idênticas]
-- **Problemas de carga:** [encoding, separador, colunas lidas como texto etc., ou "nenhum"]
+- **Chaves:** 0 chaves duplicadas ou nulas.
+- **Integridade referencial:** 13 registros orfãos e 2 valores distintos orfãos
+- **Nulos relevantes:** 153.259 valores nulos
+- **Duplicatas:** 261.831 Linhas duplicadas na tabela geolocation resultando em 26.18%
+- **Problemas de carga:** 0 problemas de carregamento
 
 Os achados acima alimentam diretamente a tabela de problemas do Step 2.
 
