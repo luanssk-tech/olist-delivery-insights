@@ -1,43 +1,47 @@
-# 📊 [Nome do Projeto] — Análise de Dados End-to-End
-
-<!-- Dica: título curto e descritivo. Ex.: "Análise de Churn de Clientes — Telecom" -->
+# 📦 Entregas Atrasadas e Satisfação do Cliente — Análise End-to-End do E-commerce Olist
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
-![SQL](https://img.shields.io/badge/SQL-BigQuery%20%7C%20PostgreSQL-orange)
-![Status](https://img.shields.io/badge/status-concluído-brightgreen)
-<!-- Troque os badges pelas ferramentas que você realmente usou. Status: em andamento | concluído -->
+![SQL](https://img.shields.io/badge/SQL-PostgreSQL-orange)
+![BI](https://img.shields.io/badge/BI-Power%20BI%20%7C%20Looker%20Studio-yellow)
+![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
+<!-- Troque os badges pelas ferramentas que você realmente usar. Quando terminar, mude o status para "concluído". -->
 
-> **Resumo em uma frase:** [O que você analisou, para quem e qual foi a principal conclusão. Ex.: "Análise de 1,2 milhão de corridas de táxi em NYC que identificou os horários e regiões com maior receita por viagem."]
+> **Resumo em uma frase:** [Preencher ao final. Modelo: "Análise de ~99 mil pedidos do marketplace Olist (2016–2018) que mediu o quanto os atrasos de entrega derrubam a nota de avaliação e identificou os estados e categorias com maior risco logístico."]
 
 ---
 
 ## 🎯 Objetivo
 
-[2 a 4 linhas explicando o propósito do projeto.]
+Medir o impacto dos atrasos de entrega na satisfação dos clientes (nota de avaliação) e na recompra, identificando **onde** (estados, categorias, vendedores) e **quando** (meses, sazonalidade) o problema se concentra, para apoiar decisões de logística e de gestão de vendedores.
 
 Neste projeto, realizei uma análise de dados completa, que consiste nas seguintes etapas:
-1. Coleta e carga dos dados de [fonte].
+1. Coleta e carga dos dados do Kaggle (9 arquivos CSV do Olist) em um banco PostgreSQL.
 2. Limpeza, tratamento e validação da qualidade dos dados.
 3. Análise exploratória (EDA) para entender distribuições, padrões e anomalias.
 4. Análise aprofundada para responder às perguntas de negócio.
 5. Construção de dashboard / visualizações para comunicar os resultados.
 6. Consolidação de insights e recomendações acionáveis.
 
-> **Foco do projeto:** [Ex.: "ênfase em análise e storytelling com dados, com menor foco em engenharia de dados."]
+> **Foco do projeto:** ênfase em SQL (joins entre várias tabelas), análise e storytelling com dados, com menor foco em engenharia de dados.
 
 ## 💼 Contexto de Negócio
 
-- **Problema:** [Qual dor ou decisão motivou a análise?]
-- **Público-alvo:** [Quem usaria esses resultados? Ex.: time comercial, diretoria, operações]
-- **Impacto esperado:** [Que decisão ou ação esta análise pode apoiar?]
+> ℹ️ *Cenário fictício criado para fins de portfólio. Os dados são reais e públicos; o papel de "analista da empresa" é simulado.*
+
+- **Problema:** Em marketplaces, a experiência de entrega pesa muito na avaliação do cliente. A diretoria suspeita que atrasos em relação ao prazo prometido estão reduzindo as notas e prejudicando a reputação da plataforma, mas não sabe o tamanho do problema nem onde ele está concentrado.
+- **Público-alvo:** Diretoria de operações e logística, time de gestão de vendedores (sellers) e time de experiência do cliente.
+- **Impacto esperado:** Priorizar ações (renegociar prazos, acompanhar vendedores críticos, ajustar a promessa de entrega por região) nos pontos onde o atraso mais prejudica a satisfação.
 
 ## ❓ Perguntas de Negócio
 
 | # | Pergunta | Métrica / KPI associado |
 |---|----------|--------------------------|
-| 1 | [Ex.: Quais são os 10 principais locais de embarque?] | Nº de viagens |
-| 2 | [Ex.: Como a receita varia por hora do dia?] | Tarifa média |
-| 3 | [Ex.: Qual forma de pagamento predomina?] | % de viagens |
+| 1 | Qual é a taxa de pedidos entregues com atraso e como ela evolui ao longo do tempo? | % de pedidos atrasados |
+| 2 | Quanto o atraso reduz a nota de avaliação do cliente? | Nota média (review score) por faixa de atraso |
+| 3 | Quais estados concentram mais atrasos e pior tempo de entrega? | % de atraso e dias de entrega por UF |
+| 4 | Quais categorias de produto têm pior experiência de entrega? | % de atraso e nota média por categoria |
+| 5 | Existem vendedores que concentram atrasos de forma recorrente? | % de atraso por vendedor (com volume mínimo) |
+| 6 | O atraso afeta a receita? (frete, ticket médio e recompra) | Ticket médio, valor do frete, taxa de recompra |
 
 <!-- Esta seção é o coração de um projeto de análise: ela guia tudo o que vem depois. -->
 
@@ -52,7 +56,7 @@ Neste projeto, realizei uma análise de dados completa, que consiste nas seguint
 - [Technologies](#-technologies)
 - [Project Workflow](#-project-workflow)
 - [Estrutura do Repositório](#-estrutura-do-repositório)
-- [Data Modeling](#-data-modeling-opcional)
+- [Data Modeling](#-data-modeling)
 - [Step 1: Coleta e Ingestão](#step-1-coleta-e-ingestão)
 - [Step 2: Limpeza e Qualidade dos Dados](#step-2-limpeza-e-qualidade-dos-dados)
 - [Step 3: Análise Exploratória (EDA)](#step-3-análise-exploratória-eda)
@@ -69,51 +73,73 @@ Neste projeto, realizei uma análise de dados completa, que consiste nas seguint
 
 ## 📦 Dataset Used
 
-[Descreva brevemente o dataset: o que ele representa e quais campos principais contém.]
+O **Brazilian E-Commerce Public Dataset by Olist** reúne pedidos reais e anonimizados feitos na Olist, empresa que conecta pequenos negócios a grandes marketplaces brasileiros. Os dados cobrem o ciclo completo do pedido: status e datas, itens, preços e frete, pagamentos, avaliações dos clientes, produtos, vendedores e localização.
 
 | Item | Detalhe |
 |------|---------|
-| **Fonte** | [Nome da fonte / órgão / plataforma] |
-| **Período coberto** | [Ex.: Jan/2023 a Dez/2023] |
-| **Volume** | [Ex.: 1.2M linhas × 18 colunas] |
-| **Granularidade** | [Ex.: 1 linha = 1 viagem] |
-| **Formato** | [CSV, Parquet, API, banco SQL...] |
-| **Licença / Uso** | [Ex.: dados públicos, licença CC0] |
-| **Dados sensíveis (LGPD)?** | [Sim/Não — se sim, como foram tratados/anonimizados] |
+| **Fonte** | Kaggle — Olist (`olistbr/brazilian-ecommerce`) |
+| **Período coberto** | 2016 a 2018 |
+| **Volume** | ~100 mil pedidos (99.441 na tabela `orders`), distribuídos em 9 tabelas relacionadas |
+| **Granularidade** | Varia por tabela: 1 linha = 1 pedido (`orders`), 1 item do pedido (`order_items`), 1 pagamento, 1 avaliação etc. |
+| **Formato** | CSV (9 arquivos) |
+| **Licença / Uso** | CC BY-NC-SA 4.0 (uso não comercial, com atribuição e mesma licença — adequado para portfólio) |
+| **Dados sensíveis (LGPD)?** | Dados anonimizados pela Olist (nomes de lojas/parceiros substituídos por nomes de casas de Game of Thrones; sem dados pessoais diretos). [Confirmar na ingestão que não há campos identificáveis] |
 
 **Links úteis:**
-- Fonte oficial: [link]
-- Dicionário de dados: [link]
-- Dados brutos: [link ou instrução de download]
+- Fonte oficial: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+- Dicionário de dados: descrito na página do dataset no Kaggle (aba *Data*)
+- Dados brutos: baixar pelo Kaggle (requer login gratuito) e salvar em `data/raw/`
 
-### Dicionário de Dados (principais colunas)
+### Tabelas do dataset
+
+| Tabela (arquivo) | O que contém |
+|------------------|--------------|
+| `olist_orders_dataset` | Tabela central: status e datas de cada pedido |
+| `olist_order_items_dataset` | Itens de cada pedido: produto, vendedor, preço e frete |
+| `olist_order_payments_dataset` | Formas e valores de pagamento |
+| `olist_order_reviews_dataset` | Notas e comentários dos clientes |
+| `olist_customers_dataset` | Cliente e localização (cidade/UF) |
+| `olist_sellers_dataset` | Vendedores e localização |
+| `olist_products_dataset` | Categoria, peso e dimensões dos produtos |
+| `olist_geolocation_dataset` | CEP × latitude/longitude |
+| `product_category_name_translation` | Tradução das categorias (PT → EN) |
+
+### Dicionário de Dados (principais colunas usadas)
 
 | Coluna | Tipo | Descrição |
 |--------|------|-----------|
-| `coluna_1` | datetime | [Descrição] |
-| `coluna_2` | float | [Descrição] |
-| `coluna_3` | string | [Descrição] |
+| `order_id` | string | Identificador único do pedido |
+| `customer_id` | string | Identificador do cliente **por pedido** (o mesmo cliente recebe ids diferentes em pedidos diferentes) |
+| `customer_unique_id` | string | Identificador único do cliente (usar para análise de recompra) |
+| `order_status` | string | Status do pedido (entregue, cancelado, enviado etc.) |
+| `order_purchase_timestamp` | datetime | Data/hora da compra |
+| `order_delivered_customer_date` | datetime | Data real de entrega ao cliente |
+| `order_estimated_delivery_date` | datetime | Prazo de entrega prometido ao cliente |
+| `review_score` | int | Nota da avaliação (1 a 5) |
+| `price` / `freight_value` | float | Preço do item e valor do frete |
+| `customer_state` / `seller_state` | string | UF do cliente / do vendedor |
+| `product_category_name` | string | Categoria do produto (em português) |
+
+<!-- Revise esta tabela com o dicionário oficial ao carregar os dados e ajuste nomes/tipos se necessário. -->
 
 ## 🛠️ Technologies
 
 - **Linguagens:** Python, SQL
-- **Bibliotecas:** pandas, NumPy, Matplotlib, Seaborn, Plotly <!-- ajuste -->
+- **Bibliotecas:** pandas, NumPy, Matplotlib, Seaborn, Plotly, SQLAlchemy
 - **Ambiente:** Jupyter Notebook / VS Code
-- **Armazenamento / Banco:** [BigQuery, PostgreSQL, SQLite, CSV local...]
-- **Visualização / BI:** [Power BI, Looker Studio, Tableau, Streamlit...]
+- **Armazenamento / Banco:** PostgreSQL
+- **Visualização / BI:** [Power BI ou Looker Studio — definir]
 - **Versionamento:** Git e GitHub
-- **Outros (opcional):** [Excel, dbt, Airflow, Docker...]
+- **Outros (opcional):** Excel para conferência de números
 
 ## 🔄 Project Workflow
 
-<!-- Insira aqui um diagrama simples do fluxo (pode ser feito no draw.io, Excalidraw ou Mermaid). -->
-
 ```mermaid
 flowchart LR
-    A[Fonte de Dados] --> B[Ingestão]
+    A[Kaggle - 9 CSVs Olist] --> B[Ingestão no PostgreSQL]
     B --> C[Limpeza & Qualidade]
     C --> D[EDA]
-    D --> E[Análise / Modelagem]
+    D --> E[Análise SQL + Python]
     E --> F[Dashboard]
     F --> G[Insights & Recomendações]
 ```
@@ -130,7 +156,7 @@ Arquivos por etapa:
 ```
 .
 ├── data/
-│   ├── raw/            # dados brutos (nunca editar)
+│   ├── raw/            # dados brutos (nunca editar; não versionar os CSVs)
 │   └── processed/      # dados tratados
 ├── notebooks/          # análises em Jupyter
 ├── sql/                # queries utilizadas
@@ -140,11 +166,21 @@ Arquivos por etapa:
 └── README.md
 ```
 
-## 🧩 Data Modeling (opcional)
+## 🧩 Data Modeling
 
-<!-- Use esta seção apenas se você organizou os dados em tabelas fato/dimensão ou criou um modelo relacional. Caso contrário, remova. -->
+O dataset já é relacional. A tabela `orders` é o centro do modelo e se conecta às demais por chaves, conforme o esquema abaixo (relações principais):
 
-[Explique brevemente o modelo e insira o diagrama.]
+```mermaid
+erDiagram
+    CUSTOMERS ||--o{ ORDERS : realiza
+    ORDERS ||--|{ ORDER_ITEMS : contem
+    ORDERS ||--o{ ORDER_PAYMENTS : possui
+    ORDERS ||--o{ ORDER_REVIEWS : recebe
+    PRODUCTS ||--o{ ORDER_ITEMS : compoe
+    SELLERS ||--o{ ORDER_ITEMS : vende
+```
+
+[Opcional: criar uma view analítica `vw_pedidos_entregues` (1 linha por pedido, com prazo, atraso, nota e UF) e documentar aqui.]
 
 ![Modelo de Dados](images/data_model.png)
 
@@ -152,17 +188,17 @@ Arquivos por etapa:
 
 ## Step 1: Coleta e Ingestão
 
-[Como os dados foram obtidos e carregados? Download manual, API, web scraping, consulta SQL?]
+Download manual dos 9 CSVs no Kaggle e carga no PostgreSQL (via pandas + SQLAlchemy). [Descrever o método final usado.]
 
 ```python
 import pandas as pd
 
-df = pd.read_csv("data/raw/arquivo.csv")
-df.head()
+orders = pd.read_csv("data/raw/olist_orders_dataset.csv")
+orders.head()
 ```
 
-- Shape inicial: **[linhas × colunas]**
-- Observações: [problemas já percebidos na carga, encoding, separadores etc.]
+- Shape inicial da tabela `orders`: **99.441 linhas** (demais tabelas: [preencher após a carga])
+- Observações: [problemas percebidos na carga, encoding, separadores, colunas de data lidas como texto etc.]
 
 ## Step 2: Limpeza e Qualidade dos Dados
 
@@ -170,25 +206,29 @@ Diagnóstico inicial e tratamentos realizados:
 
 | Problema encontrado | Quantidade / % | Tratamento aplicado |
 |---------------------|----------------|----------------------|
-| Valores nulos em `coluna_x` | [ex.: 3,2%] | [ex.: preenchido com mediana] |
-| Linhas duplicadas | [ex.: 1.540] | Removidas |
-| Tipos incorretos (datas como texto) | [ex.: 2 colunas] | Convertidos para datetime |
-| Outliers em `coluna_y` | [ex.: 0,8%] | [ex.: removidos via IQR / mantidos e sinalizados] |
-| Inconsistências de categoria | [ex.: "NY", "N.Y."] | Padronizadas |
+| Colunas de data como texto | [a verificar] | Converter para datetime |
+| Pedidos sem data de entrega ao cliente | [a verificar] | [Ex.: excluir da análise de atraso, pois não foram entregues] |
+| Pedidos cancelados / indisponíveis | [a verificar] | [Ex.: filtrar `order_status = 'delivered'` nas análises de entrega] |
+| Valores nulos em categoria de produto | [a verificar] | [definir tratamento] |
+| Pedidos com mais de uma avaliação | [a verificar] | [definir regra: ex. manter a mais recente] |
+| Linhas duplicadas | [a verificar] | [definir tratamento] |
+| Outliers em tempo de entrega | [a verificar] | [removidos / mantidos e sinalizados] |
 
-**Decisões importantes:** [Explique o *porquê* das escolhas, não apenas o quê. Isso mostra raciocínio analítico.]
+**Decisões importantes:** [Explique o *porquê* das escolhas, não apenas o quê. Ex.: por que considerou apenas pedidos entregues; como definiu "atraso".]
+
+**Definição de atraso adotada:** entrega real (`order_delivered_customer_date`) posterior ao prazo prometido (`order_estimated_delivery_date`).
 
 - Shape final: **[linhas × colunas]**
-- Script/Notebook: [link]
+- Script/Notebook: [`notebooks/02_limpeza.ipynb`](notebooks/02_limpeza.ipynb)
 
 ## Step 3: Análise Exploratória (EDA)
 
-Principais verificações realizadas:
-- Estatísticas descritivas das variáveis numéricas
+Principais verificações a realizar:
+- Estatísticas descritivas das variáveis numéricas (preço, frete, dias de entrega)
 - Distribuição das variáveis (histogramas / boxplots)
-- Frequência das variáveis categóricas
-- Correlações entre variáveis
-- Análise temporal (tendências e sazonalidade)
+- Frequência das variáveis categóricas (status, categoria, UF)
+- Correlações entre variáveis (ex.: frete × tempo de entrega × nota)
+- Análise temporal (tendências e sazonalidade, incluindo picos como a Black Friday de 2017)
 
 ![Distribuição](images/eda_distribuicao.png)
 
@@ -201,33 +241,66 @@ Principais verificações realizadas:
 
 Análises realizadas para responder às perguntas de negócio:
 
-### 4.1 [Pergunta 1]
+### 4.1 Qual a taxa de atraso e como evolui no tempo?
 
 ```sql
--- Exemplo
 SELECT
-    pickup_location,
-    COUNT(*) AS total_viagens
-FROM viagens
-GROUP BY pickup_location
-ORDER BY total_viagens DESC
-LIMIT 10;
+    DATE_TRUNC('month', order_purchase_timestamp) AS mes,
+    COUNT(*) AS pedidos_entregues,
+    ROUND(100.0 * AVG(CASE
+        WHEN order_delivered_customer_date > order_estimated_delivery_date THEN 1 ELSE 0
+    END), 2) AS pct_atraso
+FROM orders
+WHERE order_status = 'delivered'
+  AND order_delivered_customer_date IS NOT NULL
+GROUP BY 1
+ORDER BY 1;
 ```
 
 ![Resultado 1](images/analise_1.png)
 
 **Leitura do resultado:** [O que o gráfico/tabela mostra e por que importa.]
 
-### 4.2 [Pergunta 2]
+### 4.2 Quanto o atraso reduz a nota de avaliação?
 
-[Repita a estrutura: query/código → visual → leitura do resultado.]
+```sql
+WITH pedidos AS (
+    SELECT
+        o.order_id,
+        CASE
+            WHEN o.order_delivered_customer_date <= o.order_estimated_delivery_date THEN '1. No prazo'
+            WHEN o.order_delivered_customer_date - o.order_estimated_delivery_date <= INTERVAL '3 days' THEN '2. Atraso de 1 a 3 dias'
+            WHEN o.order_delivered_customer_date - o.order_estimated_delivery_date <= INTERVAL '7 days' THEN '3. Atraso de 4 a 7 dias'
+            ELSE '4. Atraso acima de 7 dias'
+        END AS faixa_atraso
+    FROM orders o
+    WHERE o.order_status = 'delivered'
+      AND o.order_delivered_customer_date IS NOT NULL
+)
+SELECT
+    p.faixa_atraso,
+    COUNT(*) AS avaliacoes,
+    ROUND(AVG(r.review_score), 2) AS nota_media
+FROM pedidos p
+JOIN order_reviews r ON r.order_id = p.order_id
+GROUP BY p.faixa_atraso
+ORDER BY p.faixa_atraso;
+```
 
-### 4.3 [Análise estatística / modelo — opcional]
+![Resultado 2](images/analise_2.png)
 
-<!-- Se aplicável: teste de hipótese, regressão, segmentação (RFM, clusters), previsão, teste A/B etc. -->
+**Leitura do resultado:** [...]
 
-- **Método:** [ex.: regressão linear, teste t, K-Means]
-- **Métricas de avaliação:** [ex.: R², RMSE, p-value]
+### 4.3 Estados, categorias e vendedores com maior concentração de atraso
+
+[Repita a estrutura: query/código → visual → leitura do resultado. Para vendedores, definir volume mínimo de pedidos para evitar conclusões com amostras pequenas.]
+
+### 4.4 Análise estatística — opcional
+
+<!-- Sugestões: teste de hipótese (nota média com vs. sem atraso), correlação entre dias de atraso e nota, segmentação de clientes (RFM) e taxa de recompra. -->
+
+- **Método:** [ex.: teste t / Mann-Whitney, correlação de Spearman]
+- **Métricas de avaliação:** [ex.: p-value, tamanho do efeito]
 - **Conclusão:** [resultado em linguagem simples]
 
 ## Step 5: Dashboard
@@ -237,18 +310,18 @@ LIMIT 10;
 ![Dashboard - Página 1](images/dashboard_p1.png)
 ![Dashboard - Página 2](images/dashboard_p2.png)
 
-**Principais KPIs exibidos:** [KPI 1, KPI 2, KPI 3]
-**Filtros disponíveis:** [período, região, categoria...]
+**Principais KPIs exibidos:** % de pedidos atrasados, nota média, tempo médio de entrega, receita total
+**Filtros disponíveis:** período, UF do cliente, categoria de produto
 
 ---
 
 ## 💡 Resultados e Insights
 
-<!-- A seção mais importante para quem lê seu portfólio. Seja específico e use números. -->
+<!-- Preencher somente com o que os dados mostrarem. Seja específico e use números. -->
 
 | # | Insight | Evidência (dado) | Impacto de negócio |
 |---|---------|------------------|--------------------|
-| 1 | [Ex.: O pico de receita ocorre entre 17h e 19h] | [Tarifa média 22% acima da média] | [Ajustar oferta de motoristas nesse horário] |
+| 1 | [Insight] | [Número] | [Impacto] |
 | 2 | [Insight] | [Número] | [Impacto] |
 | 3 | [Insight] | [Número] | [Impacto] |
 
@@ -265,15 +338,18 @@ LIMIT 10;
 
 ## ⚠️ Limitações e Premissas
 
-- [Ex.: Os dados cobrem apenas 1 ano, o que limita a análise de sazonalidade.]
-- [Ex.: Outliers foram removidos com critério X, o que pode afetar a média.]
-- [Ex.: Correlação não implica causalidade.]
+- Os dados cobrem apenas 2016–2018 e 2016 tem volume muito baixo, o que limita a análise de sazonalidade e de tendência.
+- O dataset é de um único marketplace/ecossistema (Olist); resultados não generalizam para todo o e-commerce brasileiro.
+- Atraso foi medido contra o prazo prometido, não contra o tempo "ideal" de entrega.
+- Correlação não implica causalidade: notas baixas podem ter outras causas além do atraso (qualidade do produto, produto divergente etc.).
+- [Adicionar decisões de limpeza que possam afetar os números, ex.: critério de outliers.]
 
 ## 🚀 Próximos Passos
 
-- [ ] [Ex.: Incluir dados de outros períodos]
-- [ ] [Ex.: Criar modelo preditivo de demanda]
-- [ ] [Ex.: Automatizar a atualização do dashboard]
+- [ ] Analisar os comentários de texto das avaliações para identificar outros motivos de insatisfação (NLP)
+- [ ] Criar modelo preditivo de risco de atraso por pedido
+- [ ] Cruzar com o *Marketing Funnel by Olist* (outro dataset público da empresa)
+- [ ] Automatizar a atualização do dashboard
 
 ## ▶️ Como Reproduzir
 
@@ -289,8 +365,8 @@ source venv/bin/activate      # Windows: venv\Scripts\activate
 # 3. Instale as dependências
 pip install -r requirements.txt
 
-# 4. Baixe os dados e coloque em data/raw/
-# [instruções ou link]
+# 4. Baixe os dados do Kaggle e coloque os 9 CSVs em data/raw/
+# https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
 # 5. Execute os notebooks na ordem 01 → 04
 jupyter notebook
@@ -308,3 +384,5 @@ Analista de Dados | [Sua área de interesse]
 ---
 
 ⭐ Se este projeto foi útil, deixe uma estrela no repositório!
+
+<sub>Dados: Olist, via Kaggle, licença CC BY-NC-SA 4.0.</sub>

@@ -1,2 +1,7 @@
+# Ambientes virtuais Python
+venv/
+.venv/
+env/
+
 #Dados Brutos
 data/raw/*.csv
