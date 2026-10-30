@@ -189,7 +189,10 @@ erDiagram
 
 Download manual dos 9 CSVs no Kaggle e carga no PostgreSQL (via pandas + SQLAlchemy).
 
-![Coleta de Dados](images/Inserindo_BD.jpg)
+![conectando bd](images/conectando_db.jpg)
+![organizar_mapear_bd](images/organizar_mapear_db.jpg)
+![importar_db](images/importar_db.jpg)
+
 
 ## Step 2: Limpeza e Qualidade dos Dados
 
