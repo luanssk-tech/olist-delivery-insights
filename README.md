@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![SQL](https://img.shields.io/badge/SQL-PostgreSQL-orange)
-![BI](https://img.shields.io/badge/BI-Power%20BI-yellow)
+![BI](https://img.shields.io/badge/BI-Power%20BI%20%7C%20Looker%20Studio-yellow)
 ![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
 <!-- Troque os badges pelas ferramentas que você realmente usar. Quando terminar, mude o status para "concluído". -->
 
@@ -22,18 +22,15 @@ Neste projeto, realizei uma análise de dados completa, que consiste nas seguint
 5. Construção de dashboard / visualizações para comunicar os resultados.
 6. Consolidação de insights e recomendações acionáveis.
 
-
-
-
+> **Foco do projeto:** ênfase em SQL (joins entre várias tabelas), análise e storytelling com dados, com menor foco em engenharia de dados.
 
 ## 💼 Contexto de Negócio
+
+> ℹ️ *Cenário fictício criado para fins de portfólio. Os dados são reais e públicos; o papel de "analista da empresa" é simulado.*
 
 - **Problema:** Em marketplaces, a experiência de entrega pesa muito na avaliação do cliente. A diretoria suspeita que atrasos em relação ao prazo prometido estão reduzindo as notas e prejudicando a reputação da plataforma, mas não sabe o tamanho do problema nem onde ele está concentrado.
 - **Público-alvo:** Diretoria de operações e logística, time de gestão de vendedores (sellers) e time de experiência do cliente.
 - **Impacto esperado:** Priorizar ações (renegociar prazos, acompanhar vendedores críticos, ajustar a promessa de entrega por região) nos pontos onde o atraso mais prejudica a satisfação.
-
-
-
 
 ## ❓ Perguntas de Negócio
 
@@ -45,6 +42,8 @@ Neste projeto, realizei uma análise de dados completa, que consiste nas seguint
 | 4 | Quais categorias de produto têm pior experiência de entrega? | % de atraso e nota média por categoria |
 | 5 | Existem vendedores que concentram atrasos de forma recorrente? | % de atraso por vendedor (com volume mínimo) |
 | 6 | O atraso afeta a receita? (frete, ticket médio e recompra) | Ticket médio, valor do frete, taxa de recompra |
+
+<!-- Esta seção é o coração de um projeto de análise: ela guia tudo o que vem depois. -->
 
 ---
 
@@ -58,7 +57,7 @@ Neste projeto, realizei uma análise de dados completa, que consiste nas seguint
 - [Project Workflow](#-project-workflow)
 - [Estrutura do Repositório](#-estrutura-do-repositório)
 - [Data Modeling](#-data-modeling)
-- [Step 1: Coleta](#step-1-coleta)
+- [Step 1: Coleta e Ingestão](#step-1-coleta-e-ingestão)
 - [Step 2: Limpeza e Qualidade dos Dados](#step-2-limpeza-e-qualidade-dos-dados)
 - [Step 3: Análise Exploratória (EDA)](#step-3-análise-exploratória-eda)
 - [Step 4: Análise e Modelagem](#step-4-análise-e-modelagem)
@@ -84,7 +83,7 @@ O **Brazilian E-Commerce Public Dataset by Olist** reúne pedidos reais e anonim
 | **Granularidade** | Varia por tabela: 1 linha = 1 pedido (`orders`), 1 item do pedido (`order_items`), 1 pagamento, 1 avaliação etc. |
 | **Formato** | CSV (9 arquivos) |
 | **Licença / Uso** | CC BY-NC-SA 4.0 (uso não comercial, com atribuição e mesma licença — adequado para portfólio) |
-| **Dados sensíveis (LGPD)?** | Dados anonimizados pela Olist (nomes de lojas/parceiros substituídos por nomes de casas de Game of Thrones; sem dados pessoais diretos).
+| **Dados sensíveis (LGPD)?** | Dados anonimizados pela Olist (nomes de lojas/parceiros substituídos por nomes de casas de Game of Thrones; sem dados pessoais diretos). [Confirmar na ingestão que não há campos identificáveis] |
 
 **Links úteis:**
 - Fonte oficial: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
@@ -126,33 +125,32 @@ O **Brazilian E-Commerce Public Dataset by Olist** reúne pedidos reais e anonim
 ## 🛠️ Technologies
 
 - **Linguagens:** Python, SQL
-- **Bibliotecas:** pandas, NumPy, Matplotlib, Seaborn, Plotly, SQLAlchemy
+- **Bibliotecas:** pandas, NumPy, Matplotlib, Seaborn, Plotly, SQLAlchemy, psycopg2, PyArrow
 - **Ambiente:** Jupyter Notebook / VS Code
-- **Banco de Dados:** PostgreSQL
-- **Dashboard:** Power BI
+- **Armazenamento / Banco:** PostgreSQL, gerenciado com DBeaver
+- **Visualização / BI:** [Power BI ou Looker Studio — definir]
 - **Versionamento:** Git e GitHub
-
-
+- **Outros (opcional):** Excel para conferência de números
 
 ## 🔄 Project Workflow
 
 ```mermaid
 flowchart LR
-    A[Kaggle - 9 CSVs Olist] --> B[Coleta no PostgreSQL]
-    B --> C[Limpeza & Qualidade]
+    A[Kaggle - 9 CSVs Olist] --> B[PostgreSQL via DBeaver]
+    B --> B2[Extração e validação - 01_coleta]
+    B2 --> C[Limpeza & Qualidade]
     C --> D[EDA]
     D --> E[Análise SQL + Python]
     E --> F[Dashboard]
     F --> G[Insights & Recomendações]
 ```
+
 Arquivos por etapa:
 - **Step 1 — Coleta:** [`notebooks/01_coleta.ipynb`](notebooks/01_coleta.ipynb)
 - **Step 2 — Limpeza:** [`notebooks/02_limpeza.ipynb`](notebooks/02_limpeza.ipynb)
 - **Step 3 — EDA:** [`notebooks/03_eda.ipynb`](notebooks/03_eda.ipynb)
 - **Step 4 — Análise:** [`notebooks/04_analise.ipynb`](notebooks/04_analise.ipynb) e [`sql/analises.sql`](sql/analises.sql)
 - **Step 5 — Dashboard:** [`dashboard/`](dashboard/)
-
-
 
 ## 📁 Estrutura do Repositório
 
@@ -166,10 +164,9 @@ Arquivos por etapa:
 ├── dashboard/          # arquivos e prints do dashboard
 ├── images/             # gráficos e imagens usados no README
 ├── requirements.txt    # dependências
+├── .env                # credenciais do banco (no .gitignore)
 └── README.md
 ```
-
-
 
 ## 🧩 Data Modeling
 
@@ -185,25 +182,70 @@ erDiagram
     SELLERS ||--o{ ORDER_ITEMS : vende
 ```
 
+[Opcional: criar uma view analítica `vw_pedidos_entregues` (1 linha por pedido, com prazo, atraso, nota e UF) e documentar aqui.]
+
+![Modelo de Dados](images/data_model.png)
+
 ---
 
+## Step 1: Coleta e Ingestão
 
-## Step 1: Coleta
+**Método:** download manual dos 9 CSVs no Kaggle → importação para o **PostgreSQL pelo DBeaver** (uma tabela por CSV) → extração no Python com **SQLAlchemy + pandas** no notebook [`01_coleta.ipynb`](notebooks/01_coleta.ipynb).
 
-Download manual dos 9 CSVs no Kaggle e carga no PostgreSQL (via pandas + SQLAlchemy).
+Manter os dados no banco permite escrever as análises das etapas seguintes em SQL (joins entre as tabelas) e usar o Python para validação e visualização.
 
-1. Conectando o Banco de dados ao Notebook
-![conectando_db](images/conectando_db.jpg)
+![Tabelas no DBeaver](images/01_dbeaver_tabelas.png)
 
-2. Organizando e Mapeando os Arquivos CSV
-![organizar_mapear_db](images/organizar_mapear_db.jpg)
+### O que o notebook faz
 
-3. Importando ao Banco de Dados
-![importar_db](images/importar_db.jpg)
+1. **Conecta ao PostgreSQL** com credenciais lidas de variáveis de ambiente (nenhuma senha no código).
+2. **Confere** se as 9 tabelas existem e **carrega** cada uma em um DataFrame.
+3. **Preparação estrutural** (sem alterar o conteúdo dos dados):
+   - colunas de data convertidas para `datetime` (`orders`, `order_items`, `order_reviews`);
+   - CEPs (`*_zip_code_prefix`) padronizados como texto de 5 dígitos, recuperando zeros à esquerda perdidos na importação;
+   - remoção de espaços no início/fim de textos e garantia de tipo numérico nas colunas de valor.
+4. **Valida a carga:** contagem de linhas vs. dataset original, unicidade das chaves primárias, integridade referencial entre tabelas, nulos e linhas duplicadas.
+5. **Salva** as tabelas preparadas em `data/processed/*.parquet`, para os próximos notebooks lerem sem depender do banco.
 
+> As decisões de limpeza (nulos, duplicatas, status, outliers) **não** foram tomadas aqui. Esta etapa só diagnostica; o tratamento está no Step 2.
 
+### Resultado da carga
 
+<!-- Cole abaixo a tabela gerada na última célula do notebook (seção 7) -->
 
+| Tabela | Linhas | Colunas | Esperado (Kaggle) | Confere? |
+|--------|-------:|--------:|------------------:|:--------:|
+| `orders` | [preencher] | [preencher] | 99.441 | [✅/⚠️] |
+| `order_items` | [preencher] | [preencher] | 112.650 | [✅/⚠️] |
+| `order_payments` | [preencher] | [preencher] | 103.886 | [✅/⚠️] |
+| `order_reviews` | [preencher] | [preencher] | 99.224 | [✅/⚠️] |
+| `customers` | [preencher] | [preencher] | 99.441 | [✅/⚠️] |
+| `sellers` | [preencher] | [preencher] | 3.095 | [✅/⚠️] |
+| `products` | [preencher] | [preencher] | 32.951 | [✅/⚠️] |
+| `geolocation` | [preencher] | [preencher] | 1.000.163 | [✅/⚠️] |
+| `product_category_name_translation` | [preencher] | [preencher] | 71 | [✅/⚠️] |
+
+### Observações da validação
+
+*(preencher com o que o notebook mostrou)*
+
+- **Chaves:** [ex.: `order_reviews` tem `review_id` repetido em mais de um pedido]
+- **Integridade referencial:** [ex.: categorias de produto sem tradução em `category_translation`]
+- **Nulos relevantes:** [ex.: pedidos sem `order_delivered_customer_date`, `product_category_name` nulo]
+- **Duplicatas:** [ex.: `geolocation` com muitas linhas idênticas]
+- **Problemas de carga:** [encoding, separador, colunas lidas como texto etc., ou "nenhum"]
+
+Os achados acima alimentam diretamente a tabela de problemas do Step 2.
+
+```python
+# trecho do notebook: leitura de uma tabela do PostgreSQL
+dfs["orders"] = pd.read_sql_query(
+    text('SELECT * FROM "public"."olist_orders_dataset"'), engine
+)
+```
+
+- Notebook: [`notebooks/01_coleta.ipynb`](notebooks/01_coleta.ipynb)
+- Saída: `data/processed/*.parquet` (9 arquivos)
 
 ## Step 2: Limpeza e Qualidade dos Dados
 
@@ -370,10 +412,17 @@ source venv/bin/activate      # Windows: venv\Scripts\activate
 # 3. Instale as dependências
 pip install -r requirements.txt
 
-# 4. Baixe os dados do Kaggle e coloque os 9 CSVs em data/raw/
+# 4. Baixe os 9 CSVs no Kaggle e importe cada um no PostgreSQL (DBeaver: botão direito na tabela > Import Data)
 # https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
-# 5. Execute os notebooks na ordem 01 → 04
+# 5. Configure a conexão (arquivo .env na raiz, NÃO versionar)
+# PGHOST=localhost
+# PGPORT=5432
+# PGDATABASE=olist
+# PGUSER=postgres
+# PGPASSWORD=sua_senha
+
+# 6. Execute os notebooks na ordem 01 → 04
 jupyter notebook
 ```
 
@@ -388,4 +437,6 @@ Analista de Dados | [Sua área de interesse]
 
 ---
 
+⭐ Se este projeto foi útil, deixe uma estrela no repositório!
 
+<sub>Dados: Olist, via Kaggle, licença CC BY-NC-SA 4.0.</sub>
