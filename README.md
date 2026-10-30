@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![SQL](https://img.shields.io/badge/SQL-PostgreSQL-orange)
-![BI](https://img.shields.io/badge/BI-Power%20BI%20%7C%20Looker%20Studio-yellow)
+![BI](https://img.shields.io/badge/BI-Power%20BI-yellow)
 ![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
 <!-- Troque os badges pelas ferramentas que você realmente usar. Quando terminar, mude o status para "concluído". -->
 
