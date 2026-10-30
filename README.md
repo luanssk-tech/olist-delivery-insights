@@ -84,7 +84,7 @@ O **Brazilian E-Commerce Public Dataset by Olist** reúne pedidos reais e anonim
 | **Granularidade** | Varia por tabela: 1 linha = 1 pedido (`orders`), 1 item do pedido (`order_items`), 1 pagamento, 1 avaliação etc. |
 | **Formato** | CSV (9 arquivos) |
 | **Licença / Uso** | CC BY-NC-SA 4.0 (uso não comercial, com atribuição e mesma licença — adequado para portfólio) |
-| **Dados sensíveis (LGPD)?** | Dados anonimizados pela Olist (nomes de lojas/parceiros substituídos por nomes de casas de Game of Thrones; sem dados pessoais diretos). [Confirmar na ingestão que não há campos identificáveis] |
+| **Dados sensíveis (LGPD)?** | Dados anonimizados pela Olist (nomes de lojas/parceiros substituídos por nomes de casas de Game of Thrones; sem dados pessoais diretos).
 
 **Links úteis:**
 - Fonte oficial: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
