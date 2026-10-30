@@ -182,6 +182,10 @@ erDiagram
     SELLERS ||--o{ ORDER_ITEMS : vende
 ```
 
+[Opcional: criar uma view analítica `vw_pedidos_entregues` (1 linha por pedido, com prazo, atraso, nota e UF) e documentar aqui.]
+
+![Modelo de Dados](images/data_model.png)
+
 ---
 
 ## Step 1: Coleta e Ingestão
@@ -209,29 +213,17 @@ Manter os dados no banco permite escrever as análises das etapas seguintes em S
 
 <!-- Cole abaixo a tabela gerada na última célula do notebook (seção 7) -->
 
-                 tabela   linhas  colunas  esperado ok
-0                orders    99441        8     99441  ✅
-1           order_items   112650        7    112650  ✅
-2        order_payments   103886        5    103886  ✅
-3         order_reviews    99224        7     99224  ✅
-4             customers    99441        5     99441  ✅
-5               sellers     3095        4      3095  ✅
-6              products    32951        9     32951  ✅
-7           geolocation  1000163        5   1000163  ✅
-8  category_translation       71        2        71  ✅
-
-
-| Tabela | Linhas | Colunas | 
-|--------|-------:|--------:|
-| `orders` | 99,441 linhas | 8 colunas |
-| `order_items` | 112,650 linhas | 7 colunas |
-| `order_payments` | 103,886 linhas | 5 colunas |
-| `order_reviews` | 99,224 linhas | 7 colunas |
-| `customers` | 99,441 linhas | 5 colunas |
-| `sellers` | 3,095 linhas | 4 colunas |
-| `products` | 32,951 linhas | 9 colunas |
-| `geolocation` | 1,000,163 linhas | 5 colunas |
-| `product_category_name_translation` | 71 linhas | 2 colunas |
+| Tabela | Linhas | Colunas | Esperado (Kaggle) | Confere? |
+|--------|-------:|--------:|------------------:|:--------:|
+| `orders` | 99441 | 8 | 99.441 | ✅ |
+| `order_items` | 112.650 | 7 | 112.650 | ✅ |
+| `order_payments` | 103.886 | 5 | 103.886 | ✅ |
+| `order_reviews` | 99.224 | 7 | 99.224 | ✅ |
+| `customers` | 99.441 | 5 | 99.441 | ✅ |
+| `sellers` | 3.095 | 4 | 3.095 | ✅ |
+| `products` | 32.951 | 9 | 32.951 | ✅ |
+| `geolocation` | 1.000.163 | 5 | 1.000.163 | ✅ |
+| `product_category_name_translation` | 71 | 2 | 71 | ✅ |
 
 ### Observações da validação
 
@@ -244,13 +236,6 @@ Manter os dados no banco permite escrever as análises das etapas seguintes em S
 - **Problemas de carga:** [encoding, separador, colunas lidas como texto etc., ou "nenhum"]
 
 Os achados acima alimentam diretamente a tabela de problemas do Step 2.
-
-```python
-# trecho do notebook: leitura de uma tabela do PostgreSQL
-dfs["orders"] = pd.read_sql_query(
-    text('SELECT * FROM "public"."olist_orders_dataset"'), engine
-)
-```
 
 - Notebook: [`notebooks/01_coleta.ipynb`](notebooks/01_coleta.ipynb)
 - Saída: `data/processed/*.parquet` (9 arquivos)
