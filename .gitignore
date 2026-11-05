@@ -1,15 +1,6 @@
-# Ambientes virtuais Python
-venv/
-.venv/
-env/
-
-#Dados Brutos
-data/raw/*.csv
-
-# Segredos
-.env
-
-# Python / Jupyter
-__pycache__/
+# Dados brutos nao sao versionados
+data/raw/*
+!data/raw/.gitkeep
 .ipynb_checkpoints/
-*.pyc
+.env
+venv
